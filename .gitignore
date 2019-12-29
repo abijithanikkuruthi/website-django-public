@@ -1,4 +1,4 @@
 venv
-abijith/__pycache__/*
-pages/__pycache__/*
-pages/migrations/*
+abijith/__pycache__
+pages/__pycache__
+pages/migrations
