@@ -2,3 +2,5 @@ venv
 abijith/__pycache__
 pages/__pycache__
 pages/migrations
+db.sqlite3
+.vscode
