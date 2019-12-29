@@ -12,6 +12,10 @@
 ## Collect Static Files
 `python3 manage.py collectstatic`
 
+## Create Superuser
+`python3 manage.py createsuperuser`
+Server emails will be sent to the mail address configured here.
+
 ## Enable Debugging
 `DEBUG=True` in `abijith/settings.py`
 
