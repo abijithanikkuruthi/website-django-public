@@ -1,9 +1,9 @@
-# website-django
+# Local Development
 
 ## Setup
 1. `python3 -m venv venv`
 2. `source venv/bin/activate`
-3. `pip3 -r install requirements.txt`
+3. `pip3 install -r requirments.txt`
 
 ## Migrations
 1. `python3 manage.py makemigrations`
@@ -11,6 +11,9 @@
 
 ## Collect Static Files
 `python3 manage.py collectstatic`
+
+## Enable Debugging
+`DEBUG=True` in `abijith/settings.py`
 
 ## Start Server
 `python3 manage.py runserver`
