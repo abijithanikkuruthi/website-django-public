@@ -8,7 +8,7 @@ class BlogAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'subject', 'send_on')
+    list_display = ('name', 'ip', 'subject', 'send_on')
     list_filter = ['send_on']
     search_fields = ['name', 'subject']
 

@@ -65,6 +65,14 @@ def blog_view(request, slug):
     }
     return render(request, 'blog-view.html', context)
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 def contact(request):
     form = MessageForm()
     message_saved = False
@@ -76,6 +84,7 @@ def contact(request):
                 email=form.cleaned_data["email"], 
                 subject=form.cleaned_data["subject"],
                 message=form.cleaned_data["message"],
+                ip=get_client_ip(request)
             )
             message.save()
             message_saved = True
