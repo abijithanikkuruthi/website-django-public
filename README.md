@@ -1,13 +1,13 @@
 # Local Development
 
 ## Setup
-1. `python3 -m venv venv`
-2. `source venv/bin/activate`
-3. `pip3 install -r requirements.txt`
+  `python3 -m venv venv`
+  `source venv/bin/activate`
+  `pip3 install -r requirements.txt`
 
 ## Migrations
-1. `python3 manage.py makemigrations`
-2. `python3 manage.py migrate`
+  `python3 manage.py makemigrations`
+  `python3 manage.py migrate`
 
 ## Collect Static Files
 `python3 manage.py collectstatic`
