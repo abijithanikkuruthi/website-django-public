@@ -50,16 +50,14 @@ def blog_view(request, slug):
             c_obj = {
                 "name" : form.cleaned_data["name"],
                 "email" : form.cleaned_data["email"], 
-                "website" : form.cleaned_data["website"],
-                "message" : form.cleaned_data["message"],
+                "comment" : form.cleaned_data["message"],
                 "ip" : get_client_ip(request),
                 "host" : request.get_host()
             }
             comment = Comment(
                 name=c_obj["name"],
                 email=c_obj["email"], 
-                website=c_obj["website"],
-                message=c_obj["message"],
+                message=c_obj["comment"],
                 ip=c_obj["ip"],
                 blog=blog,
                 created_on=datetime.datetime.now()

@@ -42,12 +42,6 @@ class CommentForm(forms.Form):
             "class": "form-control"
         })
     )
-    website = forms.CharField(
-        max_length=60,
-        widget=forms.TextInput(attrs={
-            "class": "form-control"
-        })
-    )
     message = forms.CharField(widget=forms.Textarea(
         attrs={
             "class": "form-control"
