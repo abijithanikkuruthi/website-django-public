@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Blog, Message, Tag
+from .models import Blog, Message, Tag, Comment
 
 class BlogAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'created_on')
@@ -15,6 +15,16 @@ class MessageAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     list_display = ['name']
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'blog', 'created_on', 'active')
+    list_filter = ('active', 'created_on')
+    search_fields = ('name', 'email', 'message')
+    actions = ['approve_comments']
+
+    def approve_comments(self, request, queryset):
+        queryset.update(active=True)
+
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Tag, TagAdmin)
+admin.site.register(Comment, CommentAdmin)
