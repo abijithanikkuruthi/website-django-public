@@ -1,6 +1,6 @@
 # Portfolio and Blogging Website - abijith.net
 
-Development, implementation and deployment of abijith.net
+Development, implementation and deployment of <a href="abijith.net" target="_blank">abijith.net</a>
 ## Local Development
 
 ### Setup
