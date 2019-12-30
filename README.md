@@ -1,6 +1,6 @@
 # Portfolio and Blogging Website - abijith.net
 
-Development, implementation and deployment of `abijith.net`
+Development, implementation and deployment of abijith.net
 ## Local Development
 
 ### Setup
@@ -95,8 +95,8 @@ Static file server can be configured to run along with the application server in
                 Require all granted
         </Directory>
 
-        WSGIDaemonProcess abijith python-path=/var/www/web python-home=/var/www/web/venv
+        WSGIDaemonProcess abijith python-path=/var/www/<host> python-home=/var/www/<host>/venv
         WSGIProcessGroup abijith
-        WSGIScriptAlias / /var/www/web/abijith/wsgi.py
+        WSGIScriptAlias / /var/www/<host>/abijith/wsgi.py
 ```
 Restart the server after adding the host `a2ensite <host>`
