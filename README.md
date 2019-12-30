@@ -53,3 +53,33 @@ Copy original DB from backup folder
 
 ## Restart Apache
 `sudo systemctl start apache2.service`
+
+# DevOps Changes
+Stop the server if running
+
+`web.conf` changes
+```
+	ServerAdmin admin@abijith.net
+        DocumentRoot /var/www/web
+
+        Alias /static /var/www/web/staticfiles
+        <Directory /var/www/web/staticfiles>
+                Require all granted
+        </Directory>
+
+        <Directory /var/www/web/abijith>
+                <Files wsgi.py>
+                        Require all granted
+                </Files>
+        </Directory>
+
+        <Directory /var/www/web>
+                Require all granted
+        </Directory>
+
+        WSGIDaemonProcess abijith python-path=/var/www/web python-home=/var/www/web/venv
+        WSGIProcessGroup abijith
+        WSGIScriptAlias / /var/www/web/abijith/wsgi.py
+```
+`a2ensite web` to add the host.<br/>
+Restart the server
