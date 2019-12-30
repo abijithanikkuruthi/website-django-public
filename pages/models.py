@@ -35,3 +35,18 @@ class Message(models.Model):
 
     def __str__(self):
         return self.subject
+
+class Comment(models.Model):
+    blog = models.ForeignKey(Blog,on_delete=models.CASCADE,related_name='comments')
+    name = models.CharField(max_length=80)
+    email = models.CharField(max_length=80)
+    message = models.TextField()
+    created_on = models.DateTimeField()
+    active = models.BooleanField(default=False)
+    ip = models.CharField(max_length=200)
+
+    class Meta:
+        ordering = ['-created_on']
+
+    def __str__(self):
+        return self.name
