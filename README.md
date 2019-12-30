@@ -57,7 +57,7 @@ Copy original DB from backup folder
 # DevOps Changes
 Stop the server if running
 
-`web.conf` changes
+Configure `/etc/apache2/sites-available/web.conf` to server static files and it should match the path in `STATIC_URL` in `abijith/settings.py`
 ```
 	ServerAdmin admin@abijith.net
         DocumentRoot /var/www/web
