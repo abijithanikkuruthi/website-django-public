@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Blog, Message, Tag
-from .forms import MessageForm
+from .models import Blog, Message, Tag, Comment
+from .forms import MessageForm, CommentForm
 from .utils import get_page_object, get_client_ip, send_email_to_admin
 from abijith.settings import BLOGS_PER_PAGE
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+import datetime
 
 def index(request):
     return render(request, 'index.html', {})
@@ -39,9 +40,41 @@ def blog_list_n(request, pk):
 def blog_view(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
     tags = [tag for tag in Tag.objects.all() if tag in blog.tags.all()]
+    comments = blog.comments.filter(active=True)
+
+    new_comment = False
+    # Comment posted
+    if request.method == 'POST':
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
+            c_obj = {
+                "name" : form.cleaned_data["name"],
+                "email" : form.cleaned_data["email"], 
+                "website" : form.cleaned_data["website"],
+                "message" : form.cleaned_data["message"],
+                "ip" : get_client_ip(request),
+                "host" : request.get_host()
+            }
+            comment = Comment(
+                name=c_obj["name"],
+                email=c_obj["email"], 
+                website=c_obj["website"],
+                message=c_obj["message"],
+                ip=c_obj["ip"],
+                blog=blog,
+                created_on=datetime.datetime.now()
+            )
+            comment.save()
+            send_email_to_admin(c_obj)
+            new_comment = True
+    else:
+        form = CommentForm()
     context = {
         "blog": blog,
-        "tags": tags
+        "tags": tags,
+        "comments": comments,
+        "form": form,
+        "comment_submitted": new_comment
     }
     return render(request, 'blog-view.html', context)
 

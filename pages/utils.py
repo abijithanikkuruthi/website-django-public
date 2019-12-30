@@ -38,8 +38,7 @@ def get_email_body(m_obj):
     return e_body
 
 def send_email(m_obj, to_email_list):
-    # m_obj["host"] = " ".join(m_obj["host"].split('.'))
-    e_subject = m_obj["host"] + ": New Message from '" + m_obj["name"] + "' (" + m_obj["ip"] +")"
+    e_subject = m_obj["host"] + ": New Message/Comment from '" + m_obj["name"] + "' (" + m_obj["ip"] +")"
     e_body = get_email_body(m_obj)
     email = EmailMessage(subject=e_subject, body=e_body, to=to_email_list)
     email.send()

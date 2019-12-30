@@ -42,7 +42,7 @@ class Comment(models.Model):
     email = models.CharField(max_length=80)
     website = models.CharField(max_length=80)
     message = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateTimeField()
     active = models.BooleanField(default=False)
     ip = models.CharField(max_length=200)
 
