@@ -1,79 +1,97 @@
-# Local Development
+# Portfolio and Blogging Website - abijith.net
 
-## Setup
-  `rm -rf venv`<br/>
-  `python3 -m venv venv` <br/>
-  `source venv/bin/activate` <br/>
-  `pip3 install -r requirements.txt`
+Development, implementation and deployment of `abijith.net`
+## Local Development
 
-## Migrations
-  `python3 manage.py makemigrations`<br/>
-  `python3 manage.py migrate`
-
-## Collect Static Files
-`python3 manage.py collectstatic`
-
-## Create Superuser
-`python3 manage.py createsuperuser`
-<br/>Server emails will be sent to the mail address configured here.
-
-## Enable Debugging
-`DEBUG=True` in `abijith/settings.py`
-
-## Start Server
-`python3 manage.py runserver`
-
-# Production Deployment
-
-`sudo systemctl stop apache2.service`
-
-Make a backup of `db.sqlite3` before deploying the latest changes
-
-## Build virtual environment
-`rm -rf venv`<br/>
-`python3 -m venv venv` <br/>
-  `source venv/bin/activate` <br/>
-  `pip3 install -r requirements.txt`
-
-Copy original DB from backup folder
-
-## Migrations
-`python3 manage.py makemigrations`<br/>
-  `python3 manage.py migrate`
-
-## Create Superuser (only if starting fresh)
-`python3 manage.py createsuperuser`
-<br/>Server emails will be sent to the mail address configured here.
-
-## Provide permission for Apache to write to DB
-`sudo chown www-data:www-data .`<br/>
-`sudo chown www-data:www-data db.sqlite3`<br/>
-`sudo chmod 777 .`<br/>
-`sudo chmod 777 db.sqlite3`
-
-## Restart Apache
-`sudo systemctl start apache2.service`
-
-# DevOps Changes
-Stop the server if running
-
-Configure `/etc/apache2/sites-available/web.conf` to server static files and it should match the path in `STATIC_URL` in `abijith/settings.py`
+### Setup
+Clone the repository and `cd` into the directory. Use the following commands to build the virtual environment.
 ```
-	ServerAdmin admin@abijith.net
-        DocumentRoot /var/www/web
+rm -rf venv
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+```
+Update `SECRET_KEY` and `EMAIL_HOST_PASSWORD` in `abijith/settings.py` with proper values. Also update other variables (such as `EMAIL_HOST`, `STATIC_URL`) if necessary.
+### DB Migrations
+```
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
+### Collect Static Files
+```
+python3 manage.py collectstatic
+```
+`STATIC_ROOT` in `abijith/settings.py` will store the static files to deploy in the static server. The URL can be configured in `STATIC_URL`
 
-        Alias /static /var/www/web/staticfiles
-        <Directory /var/www/web/staticfiles>
+### Create Superuser
+```
+python3 manage.py createsuperuser
+```
+Create a super user to log into the admin panel. Application server emails will be sent to the mail address configured for the super user.
+
+### Start Server
+Enable debugging by changing `DEBUG=True` in `abijith/settings.py`
+```
+python3 manage.py runserver
+```
+
+## Production Deployment
+
+### Prerequisites
+Apache2 and mod_wsgi module for Apache. The module can be installed by `sudo apt-get install libapache2-mod-wsgi-py3`
+
+Make sure to stop the Apache2 server and create a backup of `db.sqlite3` before deploying the latest changes.
+
+### Setup
+Build the virtual environment.
+```
+rm -rf venv
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+```
+Update `SECRET_KEY` and `EMAIL_HOST_PASSWORD` in `abijith/settings.py` with proper values for production setup. Also update other variables (such as `EMAIL_HOST`, `STATIC_URL`) if necessary.
+
+### DB Migrations
+```
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
+### Create Superuser
+Not necessary if reusing an existing DB.
+```
+python3 manage.py createsuperuser
+```
+Create a super user to log into the admin panel. Application server emails will be sent to the mail address configured for the super user.
+
+### Provide write permission for Apache
+Change ownership of the website folder and DB. Change permission only if multiple users needs to write into the folder.
+```
+sudo chown www-data:www-data .
+sudo chown www-data:www-data db.sqlite3
+sudo chmod 777 .
+sudo chmod 777 db.sqlite3
+```
+Restart the Apache application server with `sudo systemctl restart apache2.service`
+
+## DevOps
+Static file server can be configured to run along with the application server in `/etc/apache2/sites-available/<host>.conf`. The static files url should match the one in `STATIC_URL` in `abijith/settings.py`.
+```
+        ServerAdmin admin@abijith.net
+        DocumentRoot /var/www/<host>
+
+        Alias /static /var/www/<host>/staticfiles
+        <Directory /var/www/<host>/staticfiles>
                 Require all granted
         </Directory>
 
-        <Directory /var/www/web/abijith>
+        <Directory /var/www/<host>/abijith>
                 <Files wsgi.py>
                         Require all granted
                 </Files>
         </Directory>
 
-        <Directory /var/www/web>
+        <Directory /var/www/<host>>
                 Require all granted
         </Directory>
 
@@ -81,5 +99,4 @@ Configure `/etc/apache2/sites-available/web.conf` to server static files and it 
         WSGIProcessGroup abijith
         WSGIScriptAlias / /var/www/web/abijith/wsgi.py
 ```
-`a2ensite web` to add the host.<br/>
-Restart the server
+Restart the server after adding the host `a2ensite <host>`
