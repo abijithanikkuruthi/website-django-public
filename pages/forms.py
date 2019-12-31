@@ -33,18 +33,21 @@ class CommentForm(forms.Form):
     name = forms.CharField(
         max_length=60,
         widget=forms.TextInput(attrs={
-            "class": "form-control"
+            "class": "form-control",
+            "placeholder": "Your Name"
         })
     )
     email = forms.CharField(
         max_length=60,
         widget=forms.TextInput(attrs={
-            "class": "form-control"
+            "class": "form-control",
+            "placeholder": "Your Email"
         })
     )
     message = forms.CharField(widget=forms.Textarea(
         attrs={
-            "class": "form-control"
+            "class": "form-control",
+            "placeholder": "Comment"
         })
     )
 
