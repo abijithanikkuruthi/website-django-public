@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Blog, Message, Tag, Comment
+from .models import Blog, Message, Tag, Comment, Image
 
 class BlogAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'created_on')
@@ -24,7 +24,11 @@ class CommentAdmin(admin.ModelAdmin):
     def approve_comments(self, request, queryset):
         queryset.update(active=True)
 
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ('image', 'id')
+
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Image, ImageAdmin)

@@ -16,7 +16,7 @@
             {% for blog in blogs %}
 	          <div class="col-md-4 ftco-animate">
 	            <div class="blog-entry">
-	              <a href="/blog/{{ blog.slug }}" class="block-20" style="background-image: url({% static blog.img_thumbnail %});">
+	              <a href="/blog/{{ blog.slug }}" class="block-20" style="background-image: url({{ blog.image_thumbnail.image.url }});">
 	              </a>
 	              <div class="text p-4 d-block">
 	                <div class="meta mb-3">
@@ -25,8 +25,8 @@
 	                <h3 class="heading"><a href="/blog/{{ blog.slug }}">{{ blog.title }}</a></h3>
 	              </div>
 	            </div>
-	          </div>
-            {% endfor %}
+			  </div>
+			{% endfor %}
             
 	        </div>
 	        <div class="row mt-5">

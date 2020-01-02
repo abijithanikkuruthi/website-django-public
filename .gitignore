@@ -3,3 +3,4 @@ abijith/__pycache__
 pages/__pycache__
 pages/migrations/__pycache__
 .vscode
+db.sqlite3

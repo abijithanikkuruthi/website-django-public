@@ -82,8 +82,13 @@ Static file server can be configured to run along with the application server in
 
         Alias /static /var/www/<host>/staticfiles
         <Directory /var/www/<host>/staticfiles>
-                Require all granted
+                Options -Indexes
         </Directory>
+
+	Alias /images /var/www/<host>/images
+	<Directory /var/www/<host>/images>
+		Options -Indexes
+	</Directory>
 
         <Directory /var/www/<host>/abijith>
                 <Files wsgi.py>
@@ -91,12 +96,9 @@ Static file server can be configured to run along with the application server in
                 </Files>
         </Directory>
 
-        <Directory /var/www/<host>>
-                Require all granted
-        </Directory>
-
         WSGIDaemonProcess abijith python-path=/var/www/<host> python-home=/var/www/<host>/venv
-        WSGIProcessGroup abijith
+        WSGIProcessGroup abijith  
         WSGIScriptAlias / /var/www/<host>/abijith/wsgi.py
+
 ```
 Restart the server after adding the host `a2ensite <host>`

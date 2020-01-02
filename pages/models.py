@@ -1,21 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import User
+from abijith.settings import MEDIA_URL
 
 class Tag(models.Model):
     name = models.CharField(max_length=20)
+
     def __str__(self):
         return self.name
+
+class Image(models.Model):
+    image = models.FileField()
+
+    def __str__(self):
+        return self.image.url
 
 class Blog(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
-    author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='blog_posts')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
     created_on = models.DateTimeField()
-    img_thumbnail = models.CharField(max_length=200, default="images/blog-1.jpg")
+    image_thumbnail = models.ForeignKey(Image, related_name='image_path', on_delete=models.CASCADE)
     tags = models.ManyToManyField('Tag', related_name='posts')
+
     class Meta:
         ordering = ['-created_on']
 
