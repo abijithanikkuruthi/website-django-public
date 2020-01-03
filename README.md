@@ -11,7 +11,7 @@ python3 -m venv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
 ```
-Update `SECRET_KEY` and `EMAIL_HOST_PASSWORD` in `abijith/settings.py` with proper values. Also update other variables (such as `EMAIL_HOST`, `STATIC_URL`) if necessary.
+Update `SECRET_KEY` and `EMAIL_HOST_PASSWORD` in `abijith/settings.py` with proper values. Also update other variables (such as `EMAIL_HOST`, `STATIC_URL`, `MEDIA_URL`) if necessary.
 ### DB Migrations
 ```
 python3 manage.py makemigrations
@@ -58,7 +58,7 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 ```
 ### Create Superuser
-Not necessary if reusing an existing DB.
+This step is not necessary if reusing an existing DB.
 ```
 python3 manage.py createsuperuser
 ```
@@ -69,8 +69,8 @@ Change ownership of the website folder and DB. Change permission only if multipl
 ```
 sudo chown www-data:www-data .
 sudo chown www-data:www-data db.sqlite3
-sudo chmod 777 .
-sudo chmod 777 db.sqlite3
+sudo chmod 775 .
+sudo chmod 775 db.sqlite3
 ```
 Restart the Apache application server with `sudo systemctl restart apache2.service`
 
@@ -96,7 +96,7 @@ Static file server can be configured to run along with the application server in
                 </Files>
         </Directory>
 
-        WSGIDaemonProcess abijith python-path=/var/www/<host> python-home=/var/www/<host>/venv
+        WSGIDaemonProcess abijith python-path=/var/www/<host> python-home=/var/www/<host>/venv processes=4 threads=4
         WSGIProcessGroup abijith  
         WSGIScriptAlias / /var/www/<host>/abijith/wsgi.py
 

@@ -22,3 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)
+
+admin.site.site_header = 'abijith.net Administration'
+admin.site.site_title = 'abijith.net Administration'
+admin.site.index_title = 'Admin - abijith.net'

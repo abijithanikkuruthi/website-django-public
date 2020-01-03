@@ -8785,7 +8785,7 @@ textarea.form-control {
     stroke-dashoffset: -136px; } }
 
 .word-break {
-  word-break: break-all;
+  word-break: break-word;
 }
 
 html {
