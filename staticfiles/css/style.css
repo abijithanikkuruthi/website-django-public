@@ -8807,5 +8807,5 @@ html::-webkit-scrollbar { width: 0 !important }
 html { overflow: -moz-scrollbars-none; }
 html { -ms-overflow-style: none; }
 .col-md-8.blog-content {
-  color: white;
+  color: #dddddd;
 }
