@@ -8808,3 +8808,6 @@ html { -ms-overflow-style: none; }
 .col-md-8.blog-content {
   color: #dddddd;
 }
+.blog-content p {
+  margin-bottom: 2rem;
+}
