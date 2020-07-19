@@ -8809,6 +8809,7 @@ html { -ms-overflow-style: none; }
   color: #dddddd;
 }
 .blog-content p {
+  color: white;
   margin-bottom: 2rem;
 }
 .blog-entry:hover .text .heading a {
