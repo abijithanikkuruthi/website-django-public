@@ -8811,3 +8811,6 @@ html { -ms-overflow-style: none; }
 .blog-content p {
   margin-bottom: 2rem;
 }
+.blog-entry:hover .text .heading a {
+  color: #2f89fc;
+}
